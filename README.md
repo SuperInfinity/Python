@@ -1,1 +1,1 @@
-Some Projexts made from Python done mostly in Pycharm..!
+Some Projects made in Python 3.10.12.., done mostly in Pycharm..!
