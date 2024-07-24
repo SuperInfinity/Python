@@ -1,8 +1,11 @@
+import sys
 from tkinter import *
 from tkinter import messagebox
 from pg import generate_password
-import csv
+from os import stat
 import pyperclip
+import csv
+import json
 
 
 FILE = "Data/data.csv"
@@ -10,10 +13,13 @@ FILE = "Data/data.csv"
 
 # ---------------------------- ACCESS THE MOST RECENT EMAIL ------------------------------- #
 def read_recent_email():
-    with open(FILE, 'r') as f:
-        reader = csv.DictReader(f)
-        for r in reader:
-            em = r['email']
+    em = ''
+    if stat(FILE).st_size > 0:
+        with open(FILE, 'r') as f:
+            reader = csv.DictReader(f)
+            for r in reader:
+                em = r['email']
+
         username.insert(0, em)
 
 
@@ -35,15 +41,31 @@ def save_password():
         'password': ps
     }
 
+    data2 = {
+        wb: {
+            'email': em,
+            'password': ps
+        }
+    }
+
     if wb and em and ps:
-        ans = messagebox.askokcancel(title=wb, message=f"These are the credentials entered\n email : {em}\n"
-                                                       f"password : {ps}\n Do u want to save..?")
+        with open(FILE, 'a') as f:
+            writer = csv.DictWriter(f, fieldnames=data.keys())
+            writer.writerow(data)
 
-        if ans:
-            with open(FILE, 'a') as f:
-                writer = csv.DictWriter(f, fieldnames=data.keys())
-                writer.writerow(data)
+        try:
+            with open("Data/data.json", 'r') as f:
+                new_data = json.load(f)
+                new_data.update(data2)
+        except FileNotFoundError:
+            with open("Data/data.json", 'w') as f2:
+                json.dump(data2, f2, indent=4)
 
+        else:
+            with open("Data/data.json", 'w') as f:
+                json.dump(new_data, f, indent=4)
+
+        finally:
             clear_data()
 
     else:
