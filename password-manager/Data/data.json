@@ -1,22 +1,14 @@
 {
-    "mamazon": {
-        "email": "ewd",
-        "password": "Px*oI2yUhG#&0P"
+    "amzon": {
+        "email": "test@gmail.com",
+        "password": "zFC5yHnZ++8+k6L7Z)"
     },
-    "lipkart": {
-        "email": "ewd",
-        "password": "Xdx0Cq(n2w6!4Z"
+    "tweeter": {
+        "email": "test1",
+        "password": "g&bMyk1(63%1lI!w"
     },
-    "hajlound": {
-        "email": "uhwhsja9w",
-        "password": "L()i!T9&y73CKFwyJ"
-    },
-    "mamazon2": {
-        "email": "3231",
-        "password": "OgBU5V+6B)GiSn"
-    },
-    "uuyajd": {
-        "email": "3231",
-        "password": "M7UexDA+trtO3$*"
+    "facbook": {
+        "email": "wushh",
+        "password": "z9Rgd%X6W1(*Yj"
     }
 }

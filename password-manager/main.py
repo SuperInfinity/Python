@@ -9,6 +9,26 @@ import json
 
 
 FILE = "Data/data.csv"
+JSON = "Data/data.json"
+
+
+# ---------------------------- SEARCH FOR SOME RECORDS ---------------------------- #
+def search_rec():
+    wb = website.get()
+    if wb:
+        with open(JSON, 'r') as f:
+            data = json.load(f)
+            try:
+                data[wb]
+            except KeyError:
+                messagebox.showinfo(title="Info Not Found", message="Info Not Found..!")
+            else:
+                data = data[wb]
+                messagebox.showinfo(title="Info Found", message=f"Email: {data['email']}\n"
+                                                                f"Password: {data['password']}\n"
+                                                                f"Password Copied to clipboard")
+
+                pyperclip.copy(data['password'])
 
 
 # ---------------------------- ACCESS THE MOST RECENT EMAIL ------------------------------- #
@@ -54,15 +74,19 @@ def save_password():
             writer.writerow(data)
 
         try:
-            with open("Data/data.json", 'r') as f:
+            with open(JSON, 'r') as f:
                 new_data = json.load(f)
                 new_data.update(data2)
         except FileNotFoundError:
-            with open("Data/data.json", 'w') as f2:
+            with open(JSON, 'w') as f2:
                 json.dump(data2, f2, indent=4)
 
+        except json.decoder.JSONDecodeError:
+            with open(JSON, 'w') as f3:
+                json.dump(data2, f3, indent=4)
+
         else:
-            with open("Data/data.json", 'w') as f:
+            with open(JSON, 'w') as f:
                 json.dump(new_data, f, indent=4)
 
         finally:
@@ -96,16 +120,19 @@ canvas.grid(row=0, column=1)
 label1 = Label(text="Website: ")
 label1.grid(row=1, column=0)
 # -The Entry
-website = Entry(width=35)
-website.grid(row=1, column=1, columnspan=2)
+website = Entry(width=27)
+website.grid(row=1, column=1)
 website.focus()
+# -Search Button
+search = Button(text="Search", command=search_rec, width=15)
+search.grid(row=1, column=2)
 
 # --The Email Row
 # -The Label
 label2 = Label(text="Username/Email: ")
 label2.grid(row=2, column=0)
 # -The Entry
-username = Entry(width=35)
+username = Entry(width=45)
 username.grid(row=2, column=1, columnspan=2)
 
 read_recent_email()
@@ -115,15 +142,15 @@ read_recent_email()
 label3 = Label(text="Password: ")
 label3.grid(row=3, column=0)
 # -The Entry
-password = Entry(width=35)
-password.grid(row=3, column=1, columnspan=2)
+password = Entry(width=27)
+password.grid(row=3, column=1)
 # -Generate Button
 g_password = Button(text="Generate Password", command=populate_password)
 g_password.grid(row=3, column=2)
 
 # --Add button
-add = Button(text="Add", width=47, command=save_password)
-add.grid(row=4, column=0, columnspan=3)
+add = Button(text="Add", width=43, command=save_password)
+add.grid(row=4, column=1, columnspan=3)
 
 
 window.mainloop()
