@@ -29,7 +29,7 @@ def save_data():
     
 
 def next_card():
-    global curr_card, loop, curr_face
+    global curr_card, loop, curr_face, first
     window.after_cancel(loop)
     curr_face = 0
     curr_card = choice(german_data)
@@ -41,6 +41,7 @@ def next_card():
 
     if not first:
         german_data.remove(curr_card)
+        first = False
 
 
 def flip_card():
