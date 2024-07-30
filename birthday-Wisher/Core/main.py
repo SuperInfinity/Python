@@ -25,6 +25,7 @@ for item in data:
     today = datetime.now().date()
 
     if today.day == item[DAY] and today.month == item[MONTH]:
+        print(f"Works for {item[NAME]}")
         send_mail(item[NAME], item[EMAIL])
 
 
