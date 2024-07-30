@@ -5,9 +5,9 @@ import datetime as dt
 import smtplib
 
 
-email = "tdummy027@gmail.com"
-password = "gnqdafcvwpscybqh"
-dest = "superinfinity5@gmail.com"
+email = "ur email"
+password = "ur pasword"
+dest = "dest email"
 quotes = read_quotes()
 
 
