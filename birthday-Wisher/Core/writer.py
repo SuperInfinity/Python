@@ -9,7 +9,7 @@ FILES = [
 ]
 CREDS = [
     "tdummy027@gmail.com",
-    "gnqdafcvwpscybqh"
+    "*************YOUR_PASSWORD*******"
 ]
 PORT = 587
 
