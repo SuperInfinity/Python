@@ -1,5 +1,6 @@
 import requests
 from datetime import datetime
+from config import send_mail
 
 MY_LAT = 18.520430 # Your latitude
 MY_LONG = 73.856743 # Your longitude
@@ -38,6 +39,8 @@ time_now = datetime.now()
 # Then email me to tell me to look up.
 # BONUS: run the code every 60 seconds.
 
+print("---> ISS - ", iss_location)
+print("---> MyL -", my_location)
 
 
 def its_near():
@@ -45,7 +48,11 @@ def its_near():
         if iss_location['lng'] - my_location['lng'] in range(-5, 6):
             return True
 
+    return False
 
-if its_near:
-    # Send the mail
-    print("Test")
+if sunset <= time_now.hour <= sunrise:
+    if its_near():
+        try:
+            send_mail()
+        except Exception:
+            print(Exception.args)
